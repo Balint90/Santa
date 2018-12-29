@@ -12,18 +12,12 @@ $sumsquare = 0;
 
 foreach ($arr as $line) {
     $line = preg_replace('/\s+/', '', $line);
-    $dim = explode("x", $line);
-    $square = 2*$dim[0]*$dim[2];
-    $min = $square;
-    for ($i=0; $i < count($dim)-1; $i++) { 
-        $tmp = $dim[$i]*$dim[$i+1];
-        $square += 2*$tmp;
-        if ($min>$tmp) $min = $tmp;
-        // echo $square . " min: " . $min . "<br />";
-    }
-    $square += $min;
-    // echo $square . " min: " . $min . "<br />";
-    $sumsquare += $square;
+    list($l, $w, $h) = explode("x", $line);
+    $square = (2*$l*$w) + (2*$l*$h) + (2*$h*$w);
+    $dim = array($l, $w, $h);
+    sort($dim);
+    $plus = $dim[0]*$dim[1];
+    $sumsquare += $square + $plus;
 }
 
 echo $sumsquare;
